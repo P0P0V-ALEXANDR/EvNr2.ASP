@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NumePrenume.Models.Book>
+@{
+    ViewData["Title"] = "Lista Cărților";
+}
+
+<h1 class="page-title">Lista Cărților</h1>
+
+<div class="filters">
+    <a class="btn" asp-action="FilterByPriceRange">Filtrare preț între 150 și 500 lei</a>
+    <a class="btn" asp-action="FilterByConsonantAuthor">Autor începe cu o consoană</a>
+    <a class="btn" asp-action="FilterByMaxPrice">Cartea cu prețul maxim</a>
+    <a class="btn" asp-action="FilterByMinPrice">Cartea cu prețul minim</a>
+</div>
+
+<div class="books-grid">
+    @foreach (var book in Model)
+    {
+        <div class="book-item">
+            <div class="book-card">
+                @if (!string.IsNullOrEmpty(book.ImagePath))
+                {
+                    <img src="@book.ImagePath" alt="@book.Denumire" class="book-image" />
+                }
+                <h3>@book.Denumire</h3>
+                <p><strong>Autor:</strong> @book.Autor</p>
+                <p><strong>Editura:</strong> @book.Editura</p>
+                <p><strong>Pret:</strong> @book.Pret</p>
+                <div class="book-actions">
+                    <a class="btn" asp-action="Edit" asp-route-id="@book.ID">Editare</a> |
+                    <a class="btn" asp-action="Delete" asp-route-id="@book.ID">Ștergere</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
